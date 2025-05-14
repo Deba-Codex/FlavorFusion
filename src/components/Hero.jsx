@@ -14,8 +14,11 @@ const Hero = () => {
             Flavors for Every Occasion
           </h1>
           <p className="text-xl text-white mb-8">
-            Exquisite catering services that elevate your special events with unforgettable culinary experiences.
+            Where Taste Meets Art
           </p>
+          {/* <p className="text-xl text-white mb-8">
+            Exquisite catering services that elevate your special events with unforgettable culinary experiences.
+          </p> */}
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
             <Link 
               to="/menu" 
