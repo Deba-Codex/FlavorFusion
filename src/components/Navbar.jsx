@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChefHat } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/Flavor-Fusion.jpg'; 
-
+import Logo from '../assets/Flavor-Fusion.jpg';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,11 +9,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -26,19 +21,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-white/80 backdrop-blur-sm border-b border-gray-200'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      isScrolled
+        ? 'bg-white shadow-md text-secondary'
+        : 'bg-transparent text-white'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              {/* <ChefHat className="h-8 w-8 text-primary" /> */}
-              <img src={Logo} alt="FlavorFusion Logo" className="h-8 w-8 object-contain" />
-              <span className="ml-2 text-xl font-display font-bold text-secondary">
+              <img
+                src={Logo}
+                alt="FlavorFusion Logo"
+                className="h-10 w-10 rounded-full object-cover bg-white p-1"
+              />
+              <span className="ml-2 text-xl font-display font-bold">
                 FlavorFusion
               </span>
             </Link>
           </div>
-          
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <NavLink to="/" label="Home" />
@@ -47,19 +49,19 @@ const Navbar = () => {
               <NavLink to="/about" label="About Us" />
               <NavLink to="/testimonials" label="Testimonials" />
               <NavLink to="/contact" label="Contact" />
-              <Link 
-                to="/booking" 
+              <Link
+                to="/booking"
                 className="px-4 py-2 rounded-md text-white bg-accent hover:bg-accent-dark transition-colors"
               >
                 Book Now
               </Link>
             </div>
           </div>
-          
+
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-secondary hover:text-primary focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md hover:text-accent focus:outline-none"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -69,7 +71,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white">
+        <div className={`md:hidden ${isScrolled ? 'bg-white text-secondary' : 'bg-black/80 text-white'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <MobileNavLink to="/" label="Home" toggleMenu={toggleMenu} />
             <MobileNavLink to="/menu" label="Menu" toggleMenu={toggleMenu} />
@@ -95,7 +97,7 @@ const NavLink = ({ to, label }) => {
   return (
     <Link
       to={to}
-      className="px-3 py-2 rounded-md text-sm font-medium text-secondary hover:text-primary transition-colors"
+      className="px-3 py-2 rounded-md text-sm font-medium text-inherit hover:text-accent transition-colors"
     >
       {label}
     </Link>
@@ -107,7 +109,7 @@ const MobileNavLink = ({ to, label, toggleMenu }) => {
     <Link
       to={to}
       onClick={toggleMenu}
-      className="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-primary"
+      className="block px-3 py-2 rounded-md text-base font-medium text-inherit hover:text-accent"
     >
       {label}
     </Link>
